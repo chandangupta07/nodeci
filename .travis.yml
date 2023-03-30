@@ -1,0 +1,29 @@
+# adding language and its version
+language: node_js
+node_js: 
+  - "8"
+# adding required os
+dist: trusty
+# including dependent services
+services:
+  - mongodb
+  - redis-server
+# setting up node env
+env: 
+  - NODE_ENV=ci PORT=3000
+# chaching directires
+cache:
+  - node_modules
+  - client/node_modules
+install: 
+  - npm install
+  - npm run build
+
+# nohup if the sell is closed, dont kill anything this commands create
+# run the server
+# & - run this command in a subsell (in the background)
+# sleep 3 just tiny stop and wait for start server
+scripts: 
+  - nohup npm run start &
+  - sleep 3
+  - npm run test
